@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { AuthRequest } from '../../middlewares/auth.middleware';
 import { articleService } from './articles.service';
+import { analyticsService } from '../analytics/analytics.service';
 import { CreateArticleSchema, UpdateArticleSchema } from './articles.schema';
 import { successResponse, errorResponse, paginatedResponse } from '../../utils/response';
 import { ZodError } from 'zod';
@@ -92,7 +93,7 @@ export class ArticleController {
     try {
       const article = await articleService.getArticleById(req.params.id);
       
-      // We will handle ReadLog tracking here via BullMQ later in the analytics module or service
+      await analyticsService.trackRead(article.id, req.user?.id);
       
       res.status(200).json(successResponse('Article retrieved.', article));
     } catch (err: any) {
