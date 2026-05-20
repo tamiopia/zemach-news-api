@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  password      String
+  role          Role
+  articles      Article[]
+  readLogs      ReadLog[]
+  refreshTokens RefreshToken[]
+}
+
+enum Role {
+  AUTHOR
+  READER
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Article {
+  id          String           @id @default(uuid())
+  title       String
+  content     String
+  category    String
+  status      Status           @default(DRAFT)
+  authorId    String
+  author      User             @relation(fields: [authorId], references: [id])
+  createdAt   DateTime         @default(now())
+  deletedAt   DateTime? 
+  readLogs    ReadLog[]
+  dailyStats  DailyAnalytics[]
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+}
+
+model ReadLog {
+  id        String   @id @default(uuid())
+  articleId String
+  article   Article  @relation(fields: [articleId], references: [id])
+  readerId  String?
+  reader    User?    @relation(fields: [readerId], references: [id])
+  readAt    DateTime @default(now())
+}
+
+model DailyAnalytics {
+  id         String   @id @default(uuid())
+  articleId  String
+  article    Article  @relation(fields: [articleId], references: [id])
+  viewCount  Int      @default(0)
+  date       DateTime @db.Date
+
+  @@unique([articleId, date])
+}
