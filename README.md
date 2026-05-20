@@ -5,15 +5,16 @@ A robust, production-ready RESTful backend API designed to empower Authors to pu
 ---
 
 ## Table of Contents
-* [About the Project](#about-the-project)
-* [Features](#features)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
+- [Zemach News API](#zemach-news-api)
+  - [Table of Contents](#table-of-contents)
+  - [About the Project](#about-the-project)
+  - [Features](#features)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
+  - [Contact](#contact)
 
 ---
 
@@ -73,15 +74,6 @@ All seeded users share the same password: **`Password1!`**
 To test the endpoints interactively, visit the generated OpenAPI documentation:
 * 👉 **[http://localhost:3000/docs](http://localhost:3000/docs)**
 
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## License
 
