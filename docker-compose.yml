@@ -16,5 +16,19 @@ services:
     ports:
       - "6380:6379"
 
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://news_user:news_password@postgres:5432/news_db?schema=public
+      - JWT_SECRET=afrolink_super_secret_key_123!
+      - JWT_REFRESH_SECRET=afrolink_refresh_super_secret_key_123!
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - postgres
+      - redis
+
 volumes:
   pgdata:

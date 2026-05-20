@@ -8,12 +8,22 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "docker:start": "prisma generate && prisma migrate deploy && prisma db seed && node dist/server.js",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "prisma": {
+    "seed": "npx tsx prisma/seed.ts"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npx eslint --fix"
+    ]
+  },
   "dependencies": {
     "@scalar/express-api-reference": "^0.9.16",
     "bcrypt": "^6.0.0",
